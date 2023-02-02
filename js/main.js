@@ -22,6 +22,20 @@ let scalewayTariff = scalewayInput();
 let storageInput = $('input[name="storage"]').val();
 let transferInput = $('input[name="transfer"]').val();
 
+let prices = {
+    blackblazeStorage: 0.005,
+    bunnyStorageHdd: 0.01,
+    bunnyStorageSdd: 0.02,
+    scalewayStorageMulti: 0.06,
+    scalewayStorageSingle: 0.03,
+    vultrStorage: 0.01,
+
+    blackblazeTransfer: 0.01,
+    bunnyTransfer: 0.01,
+    scalewayTransfer: 0.02,
+    vultrTransfer: 0.01
+}
+
 function priceSimple(input, price) {
     let priceSimple = input*price;
     return priceSimple;
@@ -49,35 +63,21 @@ function priceWithDiscount(priceCalculator, discountGB, discountSum, input) {
     }
 }
 
-let blackblazeStorage = 0.005;
-let bunnyStorageHdd = 0.01;
-let bunnyStorageSdd = 0.02;
-let scalewayStorageMulti = 0.06;
-let scalewayStorageSingle = 0.03;
-let vultrStorage = 0.01;
-
-let blackblazeTransfer = 0.01;
-let bunnyTransfer = 0.01;
-let scalewayTransfer = 0.02;
-let vultrTransfer = 0.01;
-
-let sumBackblaze = priceSimple(storageInput, blackblazeStorage)+priceSimple(transferInput, blackblazeTransfer);
-let sumBunny = priceWithTariffs(bunnyStorageHdd, bunnyStorageSdd, storageInput, bunnyTariff, 'bunnyHdd')+priceSimple(transferInput, bunnyTransfer);
-let sumScaleway = priceWithDiscount(priceWithTariffs(scalewayStorageMulti, scalewayStorageSingle, storageInput, scalewayTariff, 'scalewayMulti'), 75, priceWithTariffs(scalewayStorageMulti, scalewayStorageSingle, 75, scalewayTariff, 'scalewayMulti'), storageInput)+
-priceWithDiscount(priceSimple(transferInput, scalewayTransfer), 75, priceSimple(75, scalewayTransfer), transferInput);
-let sumVultr = priceSimple(storageInput, vultrStorage)+priceSimple(transferInput, vultrTransfer);
+let sumBackblaze = priceSimple(storageInput, prices.blackblazeStorage)+priceSimple(transferInput, prices.blackblazeTransfer);
+let sumBunny = priceWithTariffs(prices.bunnyStorageHdd, prices.bunnyStorageSdd, storageInput, bunnyTariff, 'bunnyHdd')+priceSimple(transferInput, prices.bunnyTransfer);
+let sumScaleway = priceWithDiscount(priceWithTariffs(prices.scalewayStorageMulti, prices.scalewayStorageSingle, storageInput, scalewayTariff, 'scalewayMulti'), 75, priceWithTariffs(prices.scalewayStorageMulti, prices.scalewayStorageSingle, 75, scalewayTariff, 'scalewayMulti'), storageInput)+
+priceWithDiscount(priceSimple(transferInput, prices.scalewayTransfer), 75, priceSimple(75, prices.scalewayTransfer), transferInput);
+let sumVultr = priceSimple(storageInput, prices.vultrStorage)+priceSimple(transferInput, prices.vultrTransfer);
 
 
 function finalPriceBackblaze() {
     let finalPriceBackblaze;
     if (sumBackblaze <= 7) {
         finalPriceBackblaze = 7;
-        console.log(7);
         $('#chartBackblazeValue').html(finalPriceBackblaze);
         return finalPriceBackblaze;
     } else {
         finalPriceBackblaze = sumBackblaze;
-        console.log(finalPriceBackblaze);
         $('#chartBackblazeValue').html(finalPriceBackblaze);
         return finalPriceBackblaze;
     }
@@ -87,12 +87,10 @@ function finalPriceBunny() {
     let finalPriceBunny;
     if (sumBunny >= 10) {
         finalPriceBunny = 10;
-        console.log(10);
         $('#chartBunnyValue').html(finalPriceBunny);
         return finalPriceBunny;
     } else {
         finalPriceBunny = sumBunny;
-        console.log(finalPriceBunny);
         $('#chartBunnyValue').html(finalPriceBunny);
         return finalPriceBunny;
     }
@@ -101,7 +99,6 @@ function finalPriceBunny() {
 function finalPriceScaleway() {
     let finalPriceScaleway;
     finalPriceScaleway = sumScaleway;
-    console.log(finalPriceScaleway);
     $('#chartScalewayValue').html(finalPriceScaleway);
     return finalPriceScaleway;
 }
@@ -111,12 +108,10 @@ function finalPriceVultr() {
     let finalPriceVultr;
     if (sumVultr <= 5) {
         finalPriceVultr = 5;
-        console.log(5);
         $('#chartVultrValue').html(finalPriceVultr);
         return finalPriceVultr;
     } else {
         finalPriceVultr = sumVultr;
-        console.log(finalPriceVultr);
         $('#chartVultrValue').html(finalPriceVultr);
         return finalPriceVultr;
     }
@@ -167,11 +162,11 @@ scalewayTariff = scalewayInput();
 storageInput = $('input[name="storage"]').val();
 transferInput = $('input[name="transfer"]').val();
 
-sumBackblaze = priceSimple(storageInput, blackblazeStorage)+priceSimple(transferInput, blackblazeTransfer);
-sumBunny = priceWithTariffs(bunnyStorageHdd, bunnyStorageSdd, storageInput, bunnyTariff, 'bunnyHdd')+priceSimple(transferInput, bunnyTransfer);
-sumScaleway = priceWithDiscount(priceWithTariffs(scalewayStorageMulti, scalewayStorageSingle, storageInput, scalewayTariff, 'scalewayMulti'), 75, priceWithTariffs(scalewayStorageMulti, scalewayStorageSingle, 75, scalewayTariff, 'scalewayMulti'), storageInput)+
-priceWithDiscount(priceSimple(transferInput, scalewayTransfer), 75, priceSimple(75, scalewayTransfer), transferInput);
-sumVultr = priceSimple(storageInput, vultrStorage)+priceSimple(transferInput, vultrTransfer);
+sumBackblaze = priceSimple(storageInput, prices.blackblazeStorage)+priceSimple(transferInput, prices.blackblazeTransfer);
+sumBunny = priceWithTariffs(prices.bunnyStorageHdd, prices.bunnyStorageSdd, storageInput, bunnyTariff, 'bunnyHdd')+priceSimple(transferInput, prices.bunnyTransfer);
+sumScaleway = priceWithDiscount(priceWithTariffs(prices.scalewayStorageMulti, prices.scalewayStorageSingle, storageInput, scalewayTariff, 'scalewayMulti'), 75, priceWithTariffs(prices.scalewayStorageMulti, prices.scalewayStorageSingle, 75, scalewayTariff, 'scalewayMulti'), storageInput)+
+priceWithDiscount(priceSimple(transferInput, prices.scalewayTransfer), 75, priceSimple(75, prices.scalewayTransfer), transferInput);
+sumVultr = priceSimple(storageInput, prices.vultrStorage)+priceSimple(transferInput, prices.vultrTransfer);
 
 function rounded(number) {
     return +number.toFixed(2);
@@ -181,12 +176,10 @@ function finalPriceBackblaze() {
     let finalPriceBackblaze;
     if (sumBackblaze <= 7) {
         finalPriceBackblaze = 7;
-        console.log(7);
         $('#chartBackblazeValue').html(rounded(finalPriceBackblaze));
         return finalPriceBackblaze;
     } else {
         finalPriceBackblaze = sumBackblaze;
-        console.log(finalPriceBackblaze);
         $('#chartBackblazeValue').html(rounded(finalPriceBackblaze));
         return finalPriceBackblaze;
     }
@@ -196,12 +189,10 @@ function finalPriceBunny() {
     let finalPriceBunny;
     if (sumBunny >= 10) {
         finalPriceBunny = 10;
-        console.log(10);
         $('#chartBunnyValue').html(rounded(finalPriceBunny));
         return finalPriceBunny;
     } else {
         finalPriceBunny = sumBunny;
-        console.log(finalPriceBunny);
         $('#chartBunnyValue').html(rounded(finalPriceBunny));
         return finalPriceBunny;
     }
@@ -210,7 +201,6 @@ function finalPriceBunny() {
 function finalPriceScaleway() {
     let finalPriceScaleway;
     finalPriceScaleway = sumScaleway;
-    console.log(finalPriceScaleway);
     $('#chartScalewayValue').html(rounded(finalPriceScaleway));
     return finalPriceScaleway;
 }
@@ -220,12 +210,10 @@ function finalPriceVultr() {
     let finalPriceVultr;
     if (sumVultr <= 5) {
         finalPriceVultr = 5;
-        console.log(5);
         $('#chartVultrValue').html(rounded(finalPriceVultr));
         return finalPriceVultr;
     } else {
         finalPriceVultr = sumVultr;
-        console.log(finalPriceVultr);
         $('#chartVultrValue').html(rounded(finalPriceVultr));
         return finalPriceVultr;
     }
