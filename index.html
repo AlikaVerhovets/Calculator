@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+    <meta
+        name="keywords"
+        content="Calculator, trafic, storage, transfer"
+    />
+    <meta
+        name="description"
+        content="Calculator for comparison of prices of the providers"
+    />
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>Calculator for comparison of prices of the provider</h1>
+    </header>
+    <main>
+        <div class="range__forms">
+            <form oninput="storageRes.value=storage.value">
+                <input type="range" id="storage" name="storage" min="0" max="1000" value="50" >   
+                <div>
+                    <label for="storage">Storage: </label> 
+                    <output name="storageRes">50</output>
+                </div>    
+            </form>
+            <form oninput="transferRes.value=transfer.value">
+                <input type="range" id="transfer" name="transfer" min="0" max="1000" value="50" >   
+                <div>
+                    <label for="transfer">Transfer: </label> 
+                    <output name="transferRes">50</output>
+                </div>
+            </form>
+        </div>
+        <div class="comparison">
+            <ul class="comparison__providers">
+                <li>
+                    <h2>Backblaze</h2>
+                    <img src="imgs/backblaze.webp" alt="">
+                </li>
+                <li>
+                    <div>
+                        <h2>Bunny</h2>
+                        <form oninput="bunnyInput()">
+                            <input type="radio" id="bunnyHdd" name="bunny" value="bunnyHdd" checked>
+                            <label for="bunnyHdd" class="label__radio">HDD</label>
+                            <input type="radio" id="bunnySdd" name="bunny" value="bunnySdd">
+                            <label for="bunnySdd" class="label__radio">SDD</label>
+                        </form>
+                    </div>
+                    <img src="imgs/bunny.png" alt="">
+                </li>
+                <li>
+                    <div>
+                        <h2>Scaleway</h2>
+                        <form oninput="scalewayInput()">
+                            <input type="radio" id="scalewayMulti" name="scaleway" value="scalewayMulti" checked>
+                            <label for="scalewayMulti" class="label__radio">Multi</label>
+                            <input type="radio" id="scalewaySingle" name="scaleway" value="scalewaySingle">
+                            <label for="scalewaySingle" class="label__radio">Single</label>
+                        </form>
+                    </div>
+                    <img src="imgs/scaleway.webp" alt="">
+                </li>
+                <li>
+                    <h2>Vultr</h2>
+                    <img src="imgs/vultr.webp" alt="">
+                </li>
+            </ul>
+            <div class="comparison__chart__box">
+                <div class="comparison__chart">
+                    <div class="comparison__chart__line">
+                        <div id="chartBackblaze" class="price"></div>
+                        <div id="chartBackblazeValue" class="chart__value"></div>
+                    </div>
+                    <div class="comparison__chart__line">
+                        <div id="chartBunny" class="price"></div>
+                        <div id="chartBunnyValue" class="chart__value"></div>
+                    </div>
+                    <div class="comparison__chart__line">
+                        <div id="chartScaleway" class="price"></div>
+                        <div id="chartScalewayValue" class="chart__value"></div>
+                    </div>
+                    <div class="comparison__chart__line">
+                        <div id="chartVultr" class="price"></div>
+                        <div id="chartVultrValue" class="chart__value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            Made by<a href=""> Oleksandra Tarasova</a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="libs/jquery.v3.6.1.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
